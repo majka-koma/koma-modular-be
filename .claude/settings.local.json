@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdftotext \"/Users/marieschuller/Downloads/2026-06 prospekt benelux A3 NL WEB.pdf\" -)",
+      "Bash(python3 -c ' *)",
+      "Bash(pip install *)",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Bash(cp \"/Users/marieschuller/Downloads/web nl pablo/../\"*.jpg \"/Users/marieschuller/Downloads/web nl pablo/img/\")",
+      "Read(//Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/**)",
+      "Bash(# Save the logo PNG the user sent - it appears to be from the message *)",
+      "Bash(ls /tmp/*.png /tmp/*.jpg 2>/dev/null | head -10 *)",
+      "Bash(cp '/Users/marieschuller/Downloads/2023 03 07_KOMA_HALA L[18].jpg' '/Users/marieschuller/Downloads/web nl pablo/img/prod-hall-1.jpg')",
+      "Bash(cp /Users/marieschuller/Downloads/NTD_1998.jpg '/Users/marieschuller/Downloads/web nl pablo/img/prod-hall-2.jpg')",
+      "Bash(cp /Users/marieschuller/Downloads/NTD_2115.jpg '/Users/marieschuller/Downloads/web nl pablo/img/prod-hall-3.jpg')",
+      "Bash(cp /Users/marieschuller/Downloads/NTD_4429.jpg '/Users/marieschuller/Downloads/web nl pablo/img/prod-hall-4.jpg')",
+      "Bash(cp '/Users/marieschuller/Downloads/hala L.jpg' '/Users/marieschuller/Downloads/web nl pablo/img/prod-hall-hero.jpg')",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp '/Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/Dokumenty - Marketing Koma/_FOTO/Výroba/helios-koma-modular_HR_028.jpg' '/Users/marieschuller/Downloads/web nl pablo/img/hero.jpg')",
+      "Bash(cp '/Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/Dokumenty - Marketing Koma/_FOTO/Výroba/helios-koma-modular_HR_029.jpg' '/Users/marieschuller/Downloads/web nl pablo/img/prod-1.jpg')",
+      "Bash(cp '/Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/Dokumenty - Marketing Koma/_FOTO/Výroba/helios-koma-modular_HR_030.jpg' '/Users/marieschuller/Downloads/web nl pablo/img/prod-2.jpg')",
+      "Bash(cp '/Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/Dokumenty - Marketing Koma/_FOTO/Výroba/helios-koma-modular_HR_031.jpg' '/Users/marieschuller/Downloads/web nl pablo/img/prod-3.jpg')",
+      "Bash(cp '/Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/Dokumenty - Marketing Koma/_FOTO/Výroba/helios-koma-modular_HR_032.jpg' '/Users/marieschuller/Downloads/web nl pablo/img/prod-4.jpg')",
+      "Bash(sort -k5 -rh)",
+      "Bash(IMG=\"/Users/marieschuller/Downloads/web nl pablo/img\" *)",
+      "Bash(echo \"=== PRAAG KLEUTERSCHOOL ===\")",
+      "Bash(find '/Users/marieschuller/Library/CloudStorage/OneDrive-KOMAMODULARs.r.o/Dokumenty - Marketing Koma/_FOTO/SKOLY' -name *.jpg ! -name *mac001* -path *Praag* -o -name *.jpg ! -name *mac001* -path *Praha*)"
+    ]
+  }
+}

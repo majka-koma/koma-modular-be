@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOMA Modular — Modulaire Bouw voor de Benelux</title>
+  <meta name="description" content="KOMA Modular is pionier in modulaire bouw. Snelheid, kwaliteit en architectuur hand in hand. Officieel vertegenwoordiger voor de Benelux.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #C20E1A;
+      --red-dark: #9a0b14;
+      --black: #0f0f0f;
+      --dark: #1a1a1a;
+      --gray: #2e2e2e;
+      --mid: #666;
+      --light: #f5f5f3;
+      --white: #ffffff;
+      --font: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--black); background: var(--white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      border-bottom: 1px solid #222;
+    }
+    .nav-logo img { height: 42px; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: #bbb; text-decoration: none; font-size: 13px; font-weight: 400;
+      letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--red); color: var(--white); text-decoration: none;
+      font-size: 13px; font-weight: 500; padding: 9px 20px;
+      border-radius: 2px; transition: background 0.2s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--red-dark); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); margin: 4px 0; transition: all 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('img/hero.jpg'); background-position: center 30%;
+      background-size: cover; background-position: center;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.08) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      padding: 0 48px; max-width: 760px;
+    }
+    .hero-label {
+      display: inline-block; background: var(--red); color: var(--white);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 12px; margin-bottom: 28px;
+    }
+    .hero-title {
+      font-size: clamp(38px, 5.5vw, 72px); font-weight: 700; color: var(--white);
+      line-height: 1.08; margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .hero-title em { color: var(--red); font-style: normal; }
+    .hero-sub {
+      font-size: 17px; color: rgba(255,255,255,0.75); line-height: 1.65;
+      max-width: 520px; margin-bottom: 40px; font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--red); color: var(--white); text-decoration: none;
+      font-size: 14px; font-weight: 500; padding: 14px 28px; border-radius: 2px;
+      transition: background 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--red-dark); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.4); color: var(--white); text-decoration: none;
+      font-size: 14px; font-weight: 400; padding: 14px 28px; border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.07); }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 36px; background: rgba(255,255,255,0.25);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{opacity:0.2} 50%{opacity:0.8} }
+
+    /* ── STATS STRIP ── */
+    #stats {
+      background: var(--black);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .stat-item {
+      padding: 48px 40px; text-align: center;
+      border-right: 1px solid #222;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: clamp(36px, 4vw, 54px); font-weight: 700; color: var(--red);
+      line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em;
+    }
+    .stat-label { font-size: 13px; color: #888; line-height: 1.5; max-width: 180px; margin: 0 auto; }
+    .stat-note { font-size: 11px; color: #555; margin-top: 10px; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 100px 48px; }
+    .section-header { margin-bottom: 60px; }
+    .section-tag {
+      display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.02em; max-width: 600px;
+    }
+    .section-title.light { color: var(--white); }
+    .section-lead {
+      font-size: 16px; color: var(--mid); line-height: 1.7; max-width: 580px; margin-top: 16px;
+    }
+    .section-lead.light { color: rgba(255,255,255,0.6); }
+
+    /* ── WAAROM KOMA ── */
+    #waarom { background: var(--white); }
+    .waarom-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      margin-top: 0;
+    }
+    .waarom-card {
+      padding: 40px 36px; border: 1px solid #eee;
+      transition: border-color 0.25s;
+    }
+    .waarom-card:hover { border-color: var(--red); }
+    .waarom-icon {
+      width: 40px; height: 40px; margin-bottom: 20px;
+    }
+    .waarom-icon svg { width: 40px; height: 40px; }
+    .waarom-title { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+    .waarom-text { font-size: 14px; color: var(--mid); line-height: 1.65; }
+
+    /* ── SEGMENTEN ── */
+    #segmenten { background: var(--light); padding: 100px 0; }
+    #segmenten .inner { padding: 0 48px; }
+    .seg-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 60px;
+    }
+    .seg-card {
+      position: relative; overflow: hidden; cursor: pointer;
+      aspect-ratio: 3/4;
+    }
+    .seg-bg {
+      position: absolute; inset: 0; background-size: cover; background-position: center;
+      transition: transform 0.5s ease;
+    }
+    .seg-card:hover .seg-bg { transform: scale(1.05); }
+    .seg-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    }
+    .seg-content {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 24px;
+    }
+    .seg-num { font-size: 11px; color: var(--red); font-weight: 600; letter-spacing: 0.1em; margin-bottom: 8px; }
+    .seg-name { font-size: 20px; font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 8px; }
+    .seg-desc { font-size: 12px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+    /* ── PROJECTEN ── */
+    #projecten { background: var(--white); }
+    .proj-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 0;
+    }
+    .proj-card { border: 1px solid #eee; overflow: hidden; transition: box-shadow 0.25s; }
+    .proj-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+    .proj-img {
+      aspect-ratio: 16/9; overflow: hidden; background: #e8e8e8; position: relative;
+    }
+    .proj-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .proj-card:hover .proj-img img { transform: scale(1.04); }
+    .proj-placeholder-img {
+      aspect-ratio: 16/9; position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .proj-placeholder {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .proj-placeholder-text { font-size: 11px; color: #555; text-align: center; line-height: 1.5; }
+    .proj-meta { padding: 22px 24px; }
+    .proj-location {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 8px;
+    }
+    .proj-name { font-size: 17px; font-weight: 600; margin-bottom: 12px; line-height: 1.3; }
+    .proj-desc { font-size: 13px; color: var(--mid); line-height: 1.6; margin-bottom: 16px; }
+    .proj-specs {
+      display: flex; gap: 20px; border-top: 1px solid #eee; padding-top: 14px;
+    }
+    .proj-spec { font-size: 12px; color: #999; }
+    .proj-spec strong { display: block; font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 2px; }
+
+    /* ── PRODUCTIE ── */
+    #productie { background: var(--dark); padding: 100px 0; }
+    #productie .inner { padding: 0 48px; }
+    .prod-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 60px;
+    }
+    .prod-text {}
+    .prod-intro { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 36px; }
+    .prod-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .prod-fact {}
+    .prod-fact-num { font-size: 28px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .prod-fact-num span { color: var(--red); }
+    .prod-fact-label { font-size: 12px; color: #666; line-height: 1.4; }
+    .prod-cert {
+      padding: 16px 20px; border: 1px solid #333;
+      font-size: 12px; color: #777; line-height: 1.6;
+    }
+    .prod-cert strong { color: #bbb; display: block; margin-bottom: 4px; }
+    .prod-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .prod-gallery-img {
+      aspect-ratio: 4/3; overflow: hidden; background: #2a2a2a;
+    }
+    .prod-gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); transition: filter 0.3s; }
+    .prod-gallery-img:hover img { filter: grayscale(0%); }
+    .prod-gallery-img.large { grid-column: span 2; aspect-ratio: 16/7; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px;
+    }
+    .contact-form {}
+    label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; color: #555; }
+    input, textarea, select {
+      width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 0;
+      font-family: var(--font); font-size: 14px; color: var(--black);
+      outline: none; transition: border-color 0.2s; background: var(--white);
+      margin-bottom: 18px;
+    }
+    input:focus, textarea:focus { border-color: var(--red); }
+    textarea { height: 120px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      background: var(--red); color: var(--white); border: none; cursor: pointer;
+      font-family: var(--font); font-size: 14px; font-weight: 500;
+      padding: 14px 32px; width: 100%; border-radius: 0; transition: background 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .form-submit:hover { background: var(--red-dark); }
+    .contact-person {}
+    .contact-photo {
+      width: 88px; height: 88px; border-radius: 50%; background: #e8e8e8;
+      overflow: hidden; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;
+    }
+    .contact-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .contact-photo-placeholder { font-size: 28px; font-weight: 700; color: #bbb; }
+    .contact-name { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .contact-role { font-size: 13px; color: var(--mid); margin-bottom: 24px; }
+    .contact-details { display: flex; flex-direction: column; gap: 12px; }
+    .contact-detail { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+    .contact-detail-icon {
+      width: 36px; height: 36px; background: var(--light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-detail-icon svg { width: 16px; height: 16px; stroke: var(--red); fill: none; stroke-width: 2; }
+    .contact-detail a { color: var(--black); text-decoration: none; }
+    .contact-detail a:hover { color: var(--red); }
+    .contact-divider { border: none; border-top: 1px solid #eee; margin: 28px 0; }
+    .company-info { font-size: 13px; color: var(--mid); line-height: 1.7; }
+    .company-info strong { color: var(--black); font-weight: 600; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black); padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo img { height: 26px; opacity: 0.8; }
+    .footer-text { font-size: 12px; color: #555; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 12px; color: #555; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #bbb; }
+
+    /* ── SLIDESHOW ── */
+    .proj-slideshow { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #111; }
+    .proj-slides { display: flex; transition: transform 0.4s ease; height: 100%; }
+    .proj-slide { flex: 0 0 100%; width: 100%; height: 100%; }
+    .proj-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .slide-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.45); border: none; color: #fff; cursor: pointer;
+      width: 34px; height: 34px; border-radius: 50%; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 2; padding: 0;
+    }
+    .slide-btn:hover { background: rgba(0,0,0,0.75); }
+    .slide-prev { left: 10px; }
+    .slide-next { right: 10px; }
+    .slide-dots {
+      position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px; z-index: 2;
+    }
+    .slide-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5);
+      cursor: pointer; border: none; padding: 0; transition: background 0.2s;
+    }
+    .slide-dot.active { background: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+        position: absolute; top: 64px; left: 0; right: 0; background: var(--black);
+        padding: 16px 24px 24px; border-top: 1px solid #222;
+      }
+      .nav-links.open li { width: 100%; border-bottom: 1px solid #222; }
+      .nav-links.open a { display: block; padding: 14px 0; color: var(--white); font-size: 15px; }
+      .nav-links.open .nav-cta { margin: 16px 0 0; }
+      .nav-toggle { display: block; }
+      section { padding: 70px 24px; }
+      .hero-content { padding: 0 24px; }
+      #stats { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid #222; }
+      .stat-item:last-child { border-bottom: none; }
+      .waarom-grid { grid-template-columns: 1fr; }
+      .seg-grid { grid-template-columns: 1fr 1fr; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .prod-layout { grid-template-columns: 1fr; gap: 48px; }
+      .prod-gallery-img.large { grid-column: span 2; }
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
+      #segmenten .inner, #productie .inner { padding: 0 24px; }
+      .seg-grid { margin-top: 40px; }
+    }
+    @media (max-width: 540px) {
+      .seg-grid { grid-template-columns: 1fr; }
+      .prod-gallery { grid-template-columns: 1fr; }
+      .prod-gallery-img.large { grid-column: span 1; aspect-ratio: 4/3; }
+      .form-row { grid-template-columns: 1fr; }
+      .prod-facts { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo"><img src="img/logo-white.png" alt="KOMA Modular"></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#waarom">Waarom KOMA</a></li>
+    <li><a href="#segmenten">Sectoren</a></li>
+    <li><a href="#projecten">Projecten</a></li>
+    <li><a href="#productie">Productie</a></li>
+    <li><a href="#contact" class="nav-cta">Neem contact op</a></li>
+    <li style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.05em;">
+      <a href="index.html" style="color:#fff;font-weight:600;">NL</a>
+      <span style="color:#444;">|</span>
+      <a href="fr.html" style="color:#666;">FR</a>
+      <span style="color:#444;">|</span>
+      <a href="https://www.koma-modular.cz/en" target="_blank" rel="noopener" style="color:#666;">EN ↗</a>
+    </li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-label">Benelux — Officieel vertegenwoordiger</span>
+    <h1 class="hero-title">Modulaire bouw<br>die <em>écht</em> werkt.</h1>
+    <p class="hero-sub">Snelheid en kwaliteit hand in hand met architectuur en duurzaamheid. Al meer dan 30 jaar de Europese pionier in modulaire constructie.</p>
+    <div class="hero-actions">
+      <a href="#projecten" class="btn-primary">Bekijk onze projecten</a>
+      <a href="#contact" class="btn-outline">Neem contact op</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stat-item">
+    <div class="stat-num">−31%</div>
+    <div class="stat-label">CO₂-voetafdruk per m²</div>
+    <div class="stat-note">vs. traditionele bouw</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">−55%</div>
+    <div class="stat-label">CO₂-uitstoot in de productie</div>
+    <div class="stat-note">vs. traditionele bouw</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">−83%</div>
+    <div class="stat-label">Minder afval op de bouwplaats</div>
+    <div class="stat-note">vs. traditionele bouw</div>
+  </div>
+</div>
+
+<!-- WAAROM KOMA -->
+<section id="waarom">
+  <div class="section-header">
+    <span class="section-tag">Waarom modulair</span>
+    <h2 class="section-title">Gebouwen die sneller klaar zijn,<br>zonder concessies aan kwaliteit.</h2>
+    <p class="section-lead">KOMA Modular combineert industriële precisie met architecturale vrijheid. Het resultaat: gebouwen die op schema worden opgeleverd, binnen budget, en er goed uitzien.</p>
+  </div>
+  <div class="waarom-grid">
+    <div class="waarom-card">
+      <div class="waarom-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="17" stroke="#C20E1A" stroke-width="2"/>
+          <polyline points="20,10 20,20 26,26" stroke="#C20E1A" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="waarom-title">Snelheid</div>
+      <div class="waarom-text">Prefabricatie en werfvoorbereiding verlopen gelijktijdig. De bouwtijd is aanzienlijk korter dan bij traditionele bouw, met een sneller rendement op investering.</div>
+    </div>
+    <div class="waarom-card">
+      <div class="waarom-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="10" width="28" height="20" rx="2" stroke="#C20E1A" stroke-width="2"/>
+          <line x1="14" y1="10" x2="14" y2="30" stroke="#C20E1A" stroke-width="2"/>
+          <line x1="6" y1="18" x2="34" y2="18" stroke="#C20E1A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="waarom-title">Vaste prijs</div>
+      <div class="waarom-text">90% van de kosten wordt bepaald op de productielijn met nauwkeurige opvolging. Geen verrassingen achteraf, geen meerkosten door weersomstandigheden.</div>
+    </div>
+    <div class="waarom-card">
+      <div class="waarom-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 20 L20 8 L32 20 L32 34 L8 34 Z" stroke="#C20E1A" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M16 34 L16 26 L24 26 L24 34" stroke="#C20E1A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="waarom-title">Flexibel en mobiel</div>
+      <div class="waarom-text">Modulaire gebouwen kunnen worden verplaatst, van gebruiksfunctie veranderen of worden uitgebreid — met dezelfde kwaliteitsstandaard als traditionele bouw.</div>
+    </div>
+    <div class="waarom-card">
+      <div class="waarom-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6 C20 6 8 14 8 24 C8 30.627 13.373 36 20 36 C26.627 36 32 30.627 32 24 C32 14 20 6 20 6Z" stroke="#C20E1A" stroke-width="2"/>
+          <path d="M20 16 C20 16 14 20 14 25 C14 28.314 16.686 31 20 31 C23.314 31 26 28.314 26 25 C26 20 20 16 20 16Z" stroke="#C20E1A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="waarom-title">Milieuvriendelijk</div>
+      <div class="waarom-text">Minder transport, minder stof en geluid op de bouwplaats. Door de aangepaste manier van monteren minimaliseert KOMA de impact op de omgeving.</div>
+    </div>
+    <div class="waarom-card">
+      <div class="waarom-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="6,28 14,18 20,24 28,14 34,18" stroke="#C20E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="34" cy="18" r="3" fill="#C20E1A"/>
+        </svg>
+      </div>
+      <div class="waarom-title">Respect voor termijnen</div>
+      <div class="waarom-text">Constant toezicht op toelevering en productie in een gecontroleerde omgeving garandeert de afgesproken opleverdatum zonder afwijkingen.</div>
+    </div>
+    <div class="waarom-card">
+      <div class="waarom-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="12" height="12" rx="1" stroke="#C20E1A" stroke-width="2"/>
+          <rect x="22" y="6" width="12" height="12" rx="1" stroke="#C20E1A" stroke-width="2"/>
+          <rect x="6" y="22" width="12" height="12" rx="1" stroke="#C20E1A" stroke-width="2"/>
+          <rect x="22" y="22" width="12" height="12" rx="1" stroke="#C20E1A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="waarom-title">Productie in lijn</div>
+      <div class="waarom-text">Hoge precisie en strikte kwaliteitscontrole onder stabiele productieomstandigheden — zoals in de auto-industrie. Dit garandeert een consistente, constante kwaliteit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTEN -->
+<section id="segmenten">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag">Marktsectoren</span>
+      <h2 class="section-title">Voor elke sector<br>de juiste oplossing.</h2>
+      <p class="section-lead">KOMA Modular is actief in een breed scala aan sectoren. Onze modulaire aanpak biedt voor elke sector specifieke voordelen op het vlak van snelheid, flexibiliteit en kwaliteit.</p>
+    </div>
+  </div>
+  <div class="seg-grid">
+    <div class="seg-card">
+      <div class="seg-bg" style="background-image: url('img/seg-health.jpg'); background-color:#1a2a3a;"></div>
+      <div class="seg-overlay"></div>
+      <div class="seg-content">
+        <div class="seg-num">01</div>
+        <div class="seg-name">Gezondheidszorg</div>
+        <div class="seg-desc">Ziekenhuizen, poliklinieken, huisartspraktijken, bloedafnamepunten</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-bg" style="background-image: url('img/seg-school.jpg'); background-color:#1a2a1a;"></div>
+      <div class="seg-overlay"></div>
+      <div class="seg-content">
+        <div class="seg-num">02</div>
+        <div class="seg-name">Onderwijs</div>
+        <div class="seg-desc">Basisscholen, kleuterscholen, tijdelijke en permanente lokalen</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-bg" style="background-image: url('img/seg-office.jpg'); background-color:#1a1a2a;"></div>
+      <div class="seg-overlay"></div>
+      <div class="seg-content">
+        <div class="seg-num">03</div>
+        <div class="seg-name">Kantoren & Administratie</div>
+        <div class="seg-desc">Bedrijfskantoren, hoofdzetels, modulaire uitbreidingen</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-bg" style="background-image: url('img/seg-urban.jpg'); background-color:#2a1a1a;"></div>
+      <div class="seg-overlay"></div>
+      <div class="seg-content">
+        <div class="seg-num">04</div>
+        <div class="seg-name">Stedelijke Infrastructuur</div>
+        <div class="seg-desc">Publieke gebouwen, gemeentelijke voorzieningen, hotel en horeca</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTEN -->
+<section id="projecten">
+  <div class="section-header">
+    <span class="section-tag">Referenties</span>
+    <h2 class="section-title">Recente projecten<br>in de praktijk.</h2>
+    <p class="section-lead">Van kleuterscholen tot chirurgische afdelingen en kerncentrale-kantoren — modulaire bouw kent geen creatieve of technische beperkingen.</p>
+  </div>
+  <div class="proj-grid">
+
+    <!-- 1. Psychiatrisch paviljoen Ostrov -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/ostrov-1.jpg" alt="Ostrov exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/ostrov-2.jpg" alt="Ostrov exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/ostrov-3.jpg" alt="Ostrov interieur"></div>
+          <div class="proj-slide"><img src="img/proj/ostrov-4.jpg" alt="Ostrov interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Ostrov CZ · 2025</div>
+        <div class="proj-name">Psychiatrisch Paviljoen Ostrov</div>
+        <div class="proj-desc">Drielaags modulair psychiatrisch paviljoen dat de capaciteit van het ziekenhuis uitbreidde van 73 naar 96 bedden — zonder onderbreking van de zorgverlening.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>161</strong> modules</div>
+          <div class="proj-spec"><strong>3.000 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Gezondheidszorg</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Appartementsgebouw Vizovice -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/vizovice-1.jpg" alt="Vizovice exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/vizovice-2.jpg" alt="Vizovice exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/vizovice-3.jpg" alt="Vizovice interieur"></div>
+          <div class="proj-slide"><img src="img/proj/vizovice-4.jpg" alt="Vizovice interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Vizovice CZ · 2025</div>
+        <div class="proj-name">Appartementsgebouw Vizovice</div>
+        <div class="proj-desc">Woongebouw met drie wooneenheden — hotelkamer, studentenkamer en studio-appartement — en gemeenschappelijke ruimtes als demonstratieproject voor modulair wonen.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>8</strong> modules</div>
+          <div class="proj-spec"><strong>256 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Woningbouw</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Kinderopvang Nivnice -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/nivnice-1.jpg" alt="Nivnice exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/nivnice-2.jpg" alt="Nivnice exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/nivnice-3.jpg" alt="Nivnice exterieur 3"></div>
+          <div class="proj-slide"><img src="img/proj/nivnice-4.jpg" alt="Nivnice exterieur 4"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Nivnice CZ · 2026</div>
+        <div class="proj-name">Kinderopvang Nivnice</div>
+        <div class="proj-desc">Modulaire kinderopvangfaciliteit voor de gemeente Nivnice, volledig gemonteerd op locatie in slechts 5 weken.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>10</strong> modules</div>
+          <div class="proj-spec"><strong>185 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Onderwijs</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Kleuterschool Cabaj-Čápor -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/cabaj-1.jpg" alt="Cabaj-Čápor exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/cabaj-2.jpg" alt="Cabaj-Čápor exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/cabaj-3.jpg" alt="Cabaj-Čápor detail"></div>
+          <div class="proj-slide"><img src="img/proj/cabaj-4.jpg" alt="Cabaj-Čápor interieur"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Cabaj-Čápor SK · 2025</div>
+        <div class="proj-name">Kleuterschool Cabaj-Čápor</div>
+        <div class="proj-desc">Modulaire kleuterschool met markante roterende lamelgevel, uitbreidingscapaciteit voor 25 kinderen. De volledige montage was voltooid in slechts 3 dagen.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>11</strong> modules</div>
+          <div class="proj-spec"><strong>150 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Onderwijs</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Basisschool Jinotaj Zlín -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/jinotaj-1.jpg" alt="Jinotaj exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/jinotaj-2.jpg" alt="Jinotaj exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/jinotaj-3.jpg" alt="Jinotaj exterieur 3"></div>
+          <div class="proj-slide"><img src="img/proj/jinotaj-4.jpg" alt="Jinotaj detail"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Zlín CZ · 2025</div>
+        <div class="proj-name">Modulaire Basisschool Jinotaj</div>
+        <div class="proj-desc">Moderne modulaire basisschool met passieve energieoplossingen. De ruwbouw werd voltooid in slechts 6 werkdagen.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>38</strong> modules</div>
+          <div class="proj-spec"><strong>800 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Onderwijs</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Kleuterschool Praag -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/volynka-1.jpg" alt="Kleuterschool exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/volynka-2.jpg" alt="Kleuterschool exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/volynka-3.jpg" alt="Kleuterschool interieur"></div>
+          <div class="proj-slide"><img src="img/proj/volynka-4.jpg" alt="Kleuterschool interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots">
+          <button class="slide-dot active"></button><button class="slide-dot"></button>
+          <button class="slide-dot"></button><button class="slide-dot"></button>
+        </div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Praag 22 CZ · 2024</div>
+        <div class="proj-name">Ecologische Kleuterschool Nad Volyňkou</div>
+        <div class="proj-desc">Tweelaagse ecologische kleuterschool voor 99 kinderen met zonnepanelen, warmtepompen en een Siberische lariksgevel. Voltooid in 10 maanden.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>64</strong> modules</div>
+          <div class="proj-spec"><strong>1.070 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Onderwijs</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Chirurgisch paviljoen Karviná -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/karvina-1.jpg" alt="Hospitaal exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/karvina-4.jpg" alt="Hospitaal exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/karvina-2.jpg" alt="Hospitaal interieur"></div>
+          <div class="proj-slide"><img src="img/proj/karvina-3.jpg" alt="Montage"></div>
+          <div class="proj-slide"><img src="img/proj/karvina-5.jpg" alt="Hospitaal interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots">
+          <button class="slide-dot active"></button><button class="slide-dot"></button>
+          <button class="slide-dot"></button><button class="slide-dot"></button>
+          <button class="slide-dot"></button>
+        </div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Karviná CZ · 2024</div>
+        <div class="proj-name">Chirurgisch Paviljoen — Karvina Mijn-hospitaal</div>
+        <div class="proj-desc">Tweelaags modulair chirurgisch paviljoen met volledig uitgeruste operatiezalen en patiëntenafdeling, ontworpen voor mogelijke uitbreiding met een derde verdieping.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>65</strong> modules</div>
+          <div class="proj-spec"><strong>1.600 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Gezondheidszorg</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Kerncentrale Gösgen -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/gosgen-1.jpg" alt="Gösgen exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/gosgen-2.jpg" alt="Gösgen exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/gosgen-3.jpg" alt="Gösgen interieur"></div>
+          <div class="proj-slide"><img src="img/proj/gosgen-4.jpg" alt="Gösgen interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Gösgen CH · 2023</div>
+        <div class="proj-name">Kantoren Kerncentrale Gösgen</div>
+        <div class="proj-desc">Administratief gebouw met 21 kantoren voor een Zwitserse kerncentrale, gemonteerd in 1 maand met minimale hinder voor het lopende bedrijf.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>60</strong> modules</div>
+          <div class="proj-spec"><strong>1.000 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Administratie</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Verkeerspark Otrokovice -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/otrokovice-1.jpg" alt="Otrokovice exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/otrokovice-2.jpg" alt="Otrokovice exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/otrokovice-3.jpg" alt="Otrokovice interieur"></div>
+          <div class="proj-slide"><img src="img/proj/otrokovice-4.jpg" alt="Otrokovice interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Otrokovice CZ · 2022</div>
+        <div class="proj-name">Kinderverkeerspark Sluníčko</div>
+        <div class="proj-desc">Multifunctioneel modulair gebouw voor het kinderverkeerspark Sluníčko — met klaslokalen, speelruimte, kleedkamers, personeelsruimtes en een afzonderlijk opslaggebouw.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>21</strong> modules</div>
+          <div class="proj-spec"><strong>423 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Onderwijs</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Kerncentrale Dukovany -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/dukovany-1.jpg" alt="Dukovany exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/dukovany-2.jpg" alt="Dukovany exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/dukovany-3.jpg" alt="Dukovany interieur"></div>
+          <div class="proj-slide"><img src="img/proj/dukovany-4.jpg" alt="Dukovany interieur 2"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Dukovany CZ · 2021</div>
+        <div class="proj-name">Kantoren Kerncentrale Dukovany</div>
+        <div class="proj-desc">Tweelaags administratief gebouw met een grote lamelgevel voor de kerncentrale van Dukovany. Een strak en duurzaam kantoorgebouw in een gecontroleerde omgeving.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>88</strong> modules</div>
+          <div class="proj-spec"><strong>1.980 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Administratie</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Kantoorgebouw bondgevel -->
+    <div class="proj-card">
+      <div class="proj-slideshow" data-slide="0">
+        <div class="proj-slides">
+          <div class="proj-slide"><img src="img/proj/zossen-1.jpg" alt="Zossen exterieur"></div>
+          <div class="proj-slide"><img src="img/proj/zossen-2.jpg" alt="Zossen exterieur 2"></div>
+          <div class="proj-slide"><img src="img/proj/zossen-3.jpg" alt="Zossen exterieur 3"></div>
+          <div class="proj-slide"><img src="img/proj/zossen-4.jpg" alt="Zossen detail"></div>
+        </div>
+        <button class="slide-btn slide-prev" onclick="slide(this,-1)">&#8249;</button>
+        <button class="slide-btn slide-next" onclick="slide(this,1)">&#8250;</button>
+        <div class="slide-dots"><button class="slide-dot active"></button><button class="slide-dot"></button><button class="slide-dot"></button><button class="slide-dot"></button></div>
+      </div>
+      <div class="proj-meta">
+        <div class="proj-location">Zossen DE · 2021</div>
+        <div class="proj-name">Kantoorgebouw met Bondgevel</div>
+        <div class="proj-desc">Tweelaags kantoorgebouw met bondgevel en zadeldak voor een Duits bouwbedrijf nabij Berlijn — ter vervanging van verouderde containergebouwen.</div>
+        <div class="proj-specs">
+          <div class="proj-spec"><strong>12</strong> modules</div>
+          <div class="proj-spec"><strong>200 m²</strong> opp.</div>
+          <div class="proj-spec"><strong>Kantoren</strong></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUCTIE -->
+<section id="productie">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-tag" style="color: var(--red);">Onze productie</span>
+      <h2 class="section-title light">Gemaakt in eigen atelier,<br>geleverd overal in Europa.</h2>
+      <p class="section-lead light">Vanuit ons productiecomplex in Vizovice, Tsjechië, bouwen we modulaire gebouwen met industriële precisie en eigen R&D. Volledige controle van ontwerp tot montage.</p>
+    </div>
+    <div class="prod-layout">
+      <div class="prod-text">
+        <p class="prod-intro">Opgericht in 1992, pionier in modulaire bouw. KOMA Modular heeft in drie decennia een reputatie opgebouwd van betrouwbaarheid, kwaliteit en innovatie. In 2021 openden we onze eigen R&D-afdeling voor Modulariteit (VICM).</p>
+        <div class="prod-facts">
+          <div class="prod-fact">
+            <div class="prod-fact-num">10.000 <span>m²</span></div>
+            <div class="prod-fact-label">Prefabricatie-atelier</div>
+          </div>
+          <div class="prod-fact">
+            <div class="prod-fact-num">2.000 <span>+</span></div>
+            <div class="prod-fact-label">Modules per jaar</div>
+          </div>
+          <div class="prod-fact">
+            <div class="prod-fact-num">1992</div>
+            <div class="prod-fact-label">Opgericht in Vizovice</div>
+          </div>
+          <div class="prod-fact">
+            <div class="prod-fact-num">30 <span>+</span></div>
+            <div class="prod-fact-label">Jaar expertise</div>
+          </div>
+        </div>
+        <div class="prod-cert">
+          <strong>Belgisch Algemeen Aannemer — Gecertificeerd</strong>
+          KOMA Modular beschikt over het certificaat als Belgisch Algemeen Aannemer voor bouwwerken. Tijdelijke én definitieve constructies — als huur-, koop- of huurkoopproject.
+        </div>
+      </div>
+      <div class="prod-gallery">
+        <div class="prod-gallery-img large">
+          <img src="img/prod-hall-hero.jpg" alt="KOMA Modular productieatelier">
+        </div>
+        <div class="prod-gallery-img">
+          <img src="img/prod-hall-1.jpg" alt="Productie modulaire gebouwen">
+        </div>
+        <div class="prod-gallery-img">
+          <img src="img/prod-hall-2.jpg" alt="Staalconstructie KOMA">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-tag">Contact</span>
+    <h2 class="section-title">Klaar voor uw project?<br>Laten we praten.</h2>
+    <p class="section-lead">Stel uw vraag, vraag een vrijblijvende offerte aan of plan een kennismaking. Wij reageren binnen één werkdag.</p>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-form">
+      <form id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div>
+            <label for="fname">Voornaam</label>
+            <input type="text" id="fname" name="fname" placeholder="Jan" required>
+          </div>
+          <div>
+            <label for="lname">Achternaam</label>
+            <input type="text" id="lname" name="lname" placeholder="De Smet" required>
+          </div>
+        </div>
+        <label for="email">E-mailadres</label>
+        <input type="email" id="email" name="email" placeholder="jan.desmet@bedrijf.be" required>
+        <label for="phone">Telefoon</label>
+        <input type="tel" id="phone" name="phone" placeholder="+32 ...">
+        <label for="sector">Sector</label>
+        <select id="sector" name="sector">
+          <option value="">— Selecteer uw sector —</option>
+          <option>Gezondheidszorg</option>
+          <option>Onderwijs</option>
+          <option>Kantoren & Administratie</option>
+          <option>Stedelijke Infrastructuur</option>
+          <option>Horeca</option>
+          <option>Andere</option>
+        </select>
+        <label for="message">Uw bericht</label>
+        <textarea id="message" name="message" placeholder="Omschrijf kort uw project of vraag..."></textarea>
+        <button type="submit" class="form-submit" id="submit-btn">Verstuur bericht</button>
+        <p id="form-feedback" style="font-size:13px;margin-top:12px;display:none;color:#C20E1A;"></p>
+      </form>
+    </div>
+    <div class="contact-person">
+      <div class="contact-photo">
+        <div class="contact-photo-placeholder">PE</div>
+      </div>
+      <div class="contact-name">Pablo Eben</div>
+      <div class="contact-role">Benelux — Vertegenwoordiger KOMA Modular</div>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <a href="tel:+32478663228">+32 478 66 32 28</a>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <a href="mailto:pablo.eben@koma-modular.be">pablo.eben@koma-modular.be</a>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <a href="https://koma-modular.be" target="_blank">koma-modular.be</a>
+        </div>
+      </div>
+      <hr class="contact-divider">
+      <div class="company-info">
+        <strong>KOMA MODULAR s.r.o.</strong><br>
+        Říčanská 1191<br>
+        763 12 Vizovice, Tsjechische Republiek<br><br>
+        Officieel vertegenwoordigd in de Benelux<br>
+        Gecertificeerd Belgisch Algemeen Aannemer
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><img src="img/logo-white.png" alt="KOMA Modular"></div>
+  <div class="footer-text">© 2026 KOMA MODULAR s.r.o. — Alle rechten voorbehouden</div>
+  <div class="footer-links">
+    <a href="#">Privacybeleid</a>
+    <a href="#">Algemene voorwaarden</a>
+    <a href="https://koma-modular.be">koma-modular.be</a>
+    <a href="https://www.koma-modular.cz/en" target="_blank" rel="noopener" style="color:#888;">Volledige website in het Engels → koma-modular.cz/en</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
+  // Close on link click
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => links.classList.remove('open'));
+  });
+
+  // Sticky nav shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').style.borderBottom =
+      window.scrollY > 10 ? '1px solid #333' : '1px solid #222';
+  });
+
+  // Slideshow
+  function slide(btn, dir) {
+    const ss = btn.closest('.proj-slideshow');
+    const slides = ss.querySelector('.proj-slides');
+    const dots = ss.querySelectorAll('.slide-dot');
+    const count = dots.length;
+    let current = parseInt(ss.dataset.slide) || 0;
+    current = (current + dir + count) % count;
+    ss.dataset.slide = current;
+    slides.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  // Form handler (front-end only — no backend yet)
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const fb = document.getElementById('form-feedback');
+    btn.textContent = 'Verzonden ✓';
+    btn.style.background = '#2a7a2a';
+    btn.disabled = true;
+    fb.textContent = 'Bedankt voor uw bericht. Pablo neemt zo snel mogelijk contact met u op.';
+    fb.style.color = '#2a7a2a';
+    fb.style.display = 'block';
+  }
+</script>
+</body>
+</html>
