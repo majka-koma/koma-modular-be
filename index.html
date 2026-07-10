@@ -241,6 +241,16 @@
     }
     .prod-gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); transition: filter 0.3s; }
     .prod-gallery-img:hover img { filter: grayscale(0%); }
+    .prod-gallery-img { cursor: zoom-in; }
+    .prod-gallery-img::after { content: '⤢'; position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; font-size: 16px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    .prod-gallery-img { position: relative; }
+    .prod-gallery-img:hover::after { opacity: 1; }
+    /* lightbox */
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; cursor: zoom-out; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
+    #lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 32px; cursor: pointer; line-height: 1; background: none; border: none; opacity: 0.7; transition: opacity 0.2s; }
+    #lightbox-close:hover { opacity: 1; }
     .prod-gallery-img.large { grid-column: span 2; aspect-ratio: 16/7; }
 
     /* ── CONTACT ── */
@@ -894,13 +904,13 @@
         </div>
       </div>
       <div class="prod-gallery">
-        <div class="prod-gallery-img large">
+        <div class="prod-gallery-img large" onclick="openLightbox('img/prod-hall-hero.jpg')">
           <img src="img/prod-hall-hero.jpg" alt="KOMA Modular productieatelier">
         </div>
-        <div class="prod-gallery-img">
+        <div class="prod-gallery-img" onclick="openLightbox('img/prod-hall-1.jpg')">
           <img src="img/prod-hall-1.jpg" alt="Productie modulaire gebouwen">
         </div>
-        <div class="prod-gallery-img">
+        <div class="prod-gallery-img" onclick="openLightbox('img/prod-hall-2.jpg')">
           <img src="img/prod-hall-2.jpg" alt="Staalconstructie KOMA">
         </div>
       </div>
@@ -986,6 +996,12 @@
   </div>
 </section>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><img src="img/logo-white.png" alt="KOMA Modular"></div>
@@ -999,6 +1015,18 @@
 </footer>
 
 <script>
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
   // Mobile nav
   const toggle = document.getElementById('nav-toggle');
   const links = document.getElementById('nav-links');
