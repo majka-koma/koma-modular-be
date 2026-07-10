@@ -231,6 +231,14 @@
     }
     .prod-gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); transition: filter 0.3s; }
     .prod-gallery-img:hover img { filter: grayscale(0%); }
+    .prod-gallery-img { cursor: zoom-in; position: relative; }
+    .prod-gallery-img::after { content: '⤢'; position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; font-size: 16px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    .prod-gallery-img:hover::after { opacity: 1; }
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; cursor: zoom-out; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; box-shadow: 0 0 60px rgba(0,0,0,0.8); }
+    #lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 32px; cursor: pointer; line-height: 1; background: none; border: none; opacity: 0.7; transition: opacity 0.2s; }
+    #lightbox-close:hover { opacity: 1; }
     .prod-gallery-img.large { grid-column: span 2; aspect-ratio: 16/7; }
 
     /* ── CONTACT ── */
@@ -559,9 +567,9 @@
         <div class="proj-name">Pavillon psychiatrique Ostrov</div>
         <div class="proj-desc">Pavillon psychiatrique modulaire de trois étages qui a étendu la capacité de l'hôpital de 73 à 96 lits — sans interrompre les soins aux patients.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Santé</strong></div>
           <div class="proj-spec"><strong>161</strong> modules</div>
           <div class="proj-spec"><strong>3.000 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Santé</strong></div>
         </div>
       </div>
     </div>
@@ -583,9 +591,9 @@
         <div class="proj-name">Immeuble résidentiel Vizovice</div>
         <div class="proj-desc">Bâtiment résidentiel avec trois unités — chambre d'hôtel, chambre étudiante et studio-appartement — et espaces communs, comme projet de démonstration pour l'habitat modulaire.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Résidentiel</strong></div>
           <div class="proj-spec"><strong>8</strong> modules</div>
           <div class="proj-spec"><strong>256 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Résidentiel</strong></div>
         </div>
       </div>
     </div>
@@ -607,9 +615,9 @@
         <div class="proj-name">Crèche Nivnice</div>
         <div class="proj-desc">Structure modulaire de garde d'enfants pour la commune de Nivnice, entièrement assemblée sur place en seulement 5 semaines.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Enseignement</strong></div>
           <div class="proj-spec"><strong>10</strong> modules</div>
           <div class="proj-spec"><strong>185 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Enseignement</strong></div>
         </div>
       </div>
     </div>
@@ -631,9 +639,9 @@
         <div class="proj-name">École maternelle Cabaj-Čápor</div>
         <div class="proj-desc">Une école maternelle dotée d'une extension modulaire pour 25 enfants et d'une façade à persiennes rotatives du plus bel effet. Le montage complet en seulement 3 jours.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Enseignement</strong></div>
           <div class="proj-spec"><strong>11</strong> modules</div>
           <div class="proj-spec"><strong>150 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Enseignement</strong></div>
         </div>
       </div>
     </div>
@@ -655,9 +663,9 @@
         <div class="proj-name">École primaire modulaire Jinotaj</div>
         <div class="proj-desc">École primaire moderne, construite de façon modulaire, avec des solutions énergétiques passives, dont le gros œuvre a été achevé en seulement 6 jours ouvrables.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Enseignement</strong></div>
           <div class="proj-spec"><strong>38</strong> modules</div>
           <div class="proj-spec"><strong>800 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Enseignement</strong></div>
         </div>
       </div>
     </div>
@@ -679,9 +687,9 @@
         <div class="proj-name">École maternelle écologique Nad Volyňkou</div>
         <div class="proj-desc">Une école maternelle - 99 enfants sur deux niveaux - conçue écologiquement avec panneaux solaires, pompes à chaleur et façade en mélèze de Sibérie. Ouverture en 10 mois.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Enseignement</strong></div>
           <div class="proj-spec"><strong>64</strong> modules</div>
           <div class="proj-spec"><strong>1.070 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Enseignement</strong></div>
         </div>
       </div>
     </div>
@@ -704,9 +712,9 @@
         <div class="proj-name">Pavillon chirurgical — Hôpital minier de Karviná</div>
         <div class="proj-desc">Pavillon chirurgical modulaire à deux étages avec des blocs opératoires entièrement équipés, conçu pour une éventuelle extension au troisième étage.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Santé</strong></div>
           <div class="proj-spec"><strong>65</strong> modules</div>
           <div class="proj-spec"><strong>1.600 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Santé</strong></div>
         </div>
       </div>
     </div>
@@ -728,9 +736,9 @@
         <div class="proj-name">Bureaux Centrale nucléaire de Gösgen</div>
         <div class="proj-desc">Bâtiment administratif avec 21 bureaux pour une centrale nucléaire suisse, monté en 1 mois avec un impact minimal sur l'exploitation en cours.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Administration</strong></div>
           <div class="proj-spec"><strong>60</strong> modules</div>
           <div class="proj-spec"><strong>1.000 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Administration</strong></div>
         </div>
       </div>
     </div>
@@ -752,9 +760,9 @@
         <div class="proj-name">Village de sécurité routière Sluníčko</div>
         <div class="proj-desc">Bâtiment modulaire multifonctionnel équipé comme parc routier pour enfants — avec salles de classe, aire de jeux, vestiaires, locaux du personnel et bâtiment de stockage séparé.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Enseignement</strong></div>
           <div class="proj-spec"><strong>21</strong> modules</div>
           <div class="proj-spec"><strong>423 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Enseignement</strong></div>
         </div>
       </div>
     </div>
@@ -776,9 +784,9 @@
         <div class="proj-name">Bureaux Centrale nucléaire de Dukovany</div>
         <div class="proj-desc">Bâtiment administratif à deux étages avec une grande façade à lamelles pour la centrale nucléaire de Dukovany. Un bâtiment sobre et durable en environnement contrôlé.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Administration</strong></div>
           <div class="proj-spec"><strong>88</strong> modules</div>
           <div class="proj-spec"><strong>1.980 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Administration</strong></div>
         </div>
       </div>
     </div>
@@ -800,9 +808,9 @@
         <div class="proj-name">Immeuble de bureaux à façade panneautée</div>
         <div class="proj-desc">Immeuble de bureaux à deux étages avec façade panneautée et toit à pignon pour une entreprise de construction allemande près de Berlin — en remplacement d'anciens bâtiments containers.</div>
         <div class="proj-specs">
+          <div class="proj-spec"><strong>Bureaux</strong></div>
           <div class="proj-spec"><strong>12</strong> modules</div>
           <div class="proj-spec"><strong>200 m²</strong> surf.</div>
-          <div class="proj-spec"><strong>Bureaux</strong></div>
         </div>
       </div>
     </div>
@@ -854,13 +862,13 @@
         </div>
       </div>
       <div class="prod-gallery">
-        <div class="prod-gallery-img large">
+        <div class="prod-gallery-img large" onclick="openLightbox('img/prod-hall-hero.jpg')">
           <img src="img/prod-hall-hero.jpg" alt="Atelier de production KOMA Modular">
         </div>
-        <div class="prod-gallery-img">
+        <div class="prod-gallery-img" onclick="openLightbox('img/prod-hall-1.jpg')">
           <img src="img/prod-hall-1.jpg" alt="Production de bâtiments modulaires">
         </div>
-        <div class="prod-gallery-img">
+        <div class="prod-gallery-img" onclick="openLightbox('img/prod-hall-2.jpg')">
           <img src="img/prod-hall-2.jpg" alt="Structure acier KOMA">
         </div>
       </div>
@@ -946,6 +954,12 @@
   </div>
 </section>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><img src="img/logo-white.png" alt="KOMA Modular"></div>
@@ -959,6 +973,18 @@
 </footer>
 
 <script>
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
   const toggle = document.getElementById('nav-toggle');
   const links = document.getElementById('nav-links');
   toggle.addEventListener('click', () => { links.classList.toggle('open'); });
