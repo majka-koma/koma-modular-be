@@ -1035,16 +1035,35 @@
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
     const fb = document.getElementById('form-feedback');
-    btn.textContent = 'Envoyé ✓';
-    btn.style.background = '#2a7a2a';
     btn.disabled = true;
-    fb.textContent = 'Merci pour votre message. Pablo vous contactera dans les plus brefs délais.';
-    fb.style.color = '#2a7a2a';
-    fb.style.display = 'block';
+    btn.textContent = 'Envoi en cours…';
+    try {
+      const res = await fetch('send.php', { method: 'POST', body: new FormData(e.target) });
+      const json = await res.json();
+      if (json.ok) {
+        btn.textContent = 'Envoyé ✓';
+        btn.style.background = '#2a7a2a';
+        fb.textContent = 'Merci pour votre message. Pablo vous contactera dans les plus brefs délais.';
+        fb.style.color = '#2a7a2a';
+        fb.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer le message';
+        fb.textContent = 'Une erreur est survenue. Veuillez réessayer ou envoyer un e-mail à pablo.even@koma-modular.be.';
+        fb.style.color = '#C20E1A';
+        fb.style.display = 'block';
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer le message';
+      fb.textContent = 'Une erreur est survenue. Veuillez réessayer ou envoyer un e-mail à pablo.even@koma-modular.be.';
+      fb.style.color = '#C20E1A';
+      fb.style.display = 'block';
+    }
   }
 </script>
 </body>

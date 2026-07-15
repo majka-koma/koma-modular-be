@@ -1084,16 +1084,35 @@
   }
 
   // Form handler (front-end only — no backend yet)
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
     const fb = document.getElementById('form-feedback');
-    btn.textContent = 'Verzonden ✓';
-    btn.style.background = '#2a7a2a';
     btn.disabled = true;
-    fb.textContent = 'Bedankt voor uw bericht. Pablo neemt zo snel mogelijk contact met u op.';
-    fb.style.color = '#2a7a2a';
-    fb.style.display = 'block';
+    btn.textContent = 'Verzenden…';
+    try {
+      const res = await fetch('send.php', { method: 'POST', body: new FormData(e.target) });
+      const json = await res.json();
+      if (json.ok) {
+        btn.textContent = 'Verzonden ✓';
+        btn.style.background = '#2a7a2a';
+        fb.textContent = 'Bedankt voor uw bericht. Pablo neemt zo snel mogelijk contact met u op.';
+        fb.style.color = '#2a7a2a';
+        fb.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Verstuur bericht';
+        fb.textContent = 'Er is iets misgegaan. Probeer het opnieuw of stuur een e-mail naar pablo.even@koma-modular.be.';
+        fb.style.color = '#C20E1A';
+        fb.style.display = 'block';
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Verstuur bericht';
+      fb.textContent = 'Er is iets misgegaan. Probeer het opnieuw of stuur een e-mail naar pablo.even@koma-modular.be.';
+      fb.style.color = '#C20E1A';
+      fb.style.display = 'block';
+    }
   }
 </script>
 </body>
